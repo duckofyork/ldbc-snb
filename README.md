@@ -1,28 +1,28 @@
 ## LDBCouncil Social Network Benchmark data generator for MindmapsDB
 
-This generator generates a gql file that can be loaded using mindmaps-engine.
+This generator generates a gql file containg SNB data that can be loaded to MindmapsDB using Mindmaps Engine. You can find more information on SNB data here:  https://github.com/ldbc/ldbc_snb_datagen.
 
 ## Loading included sample dataset
 
-If you only want to play with mindmapsDB, a small sample dataset is included:
+A small sample dataset is included:
 
-ldbc-snb-data-person-100.gql
+``` ldbc-snb-data-person-100.gql ```
 
-To load this file into mindmapsDB, you need to do the following:
+To load this file into MindmapsDB, you need to do the following:
 
-1. Make sure you have mindmapsDB running : https://github.com/mindmapsdb/mindmapsdb
+1 . Make sure you have MindmapsDB running : https://github.com/mindmapsdb/mindmapsdb
 
-2. Open a terminal, load the ontology file by using the following command:
+2 . Open a terminal, use the following command to load the ontology file:
 
 ``` curl -H "Content-Type: application/json" -X POST -d '{"path":"FILE_PATH/ldbc-snb-ontology.gql"}' http://localhost:4567/import/ontology ```
 
-where FILE_PATH is the root folder of this project, which contains the ontology file.
+where FILE_PATH is the root folder of this project, which contains the ontology graql file.
 
-3. load the data file by using the following command:
+3 . load the data using the following command:
 
 ``` curl -H "Content-Type: application/json" -X POST -d '{"path":"FILE_PATH/ldbc-snb-data-person-100.gql"}' http://localhost:4567/import/batch/data ```
 
-again, FILE_PATH is the project root path. Loading the file can take up to 30 seconds
+again, FILE_PATH is the project root path. Loading this dataset can take up to 30 seconds.
 
 4 . Start graql shell, check if the data has been loaded by using the following graql query
 
@@ -44,14 +44,22 @@ Or you can simply set the scale factor
 For more information on how to customize the dataset, please check LDBC github
 https://github.com/ldbc/ldbc_snb_datagen.
 
-To generate the dataset, simply run the following command in a terminal:
+To generate the dataset, simply run the following command in the terminal:
 ``` FILE_PATH/run.sh ```
 
-where FILE_PATH is the path of this project, which contains the shell script.
+where FILE_PATH is the path of this project, containing the shell script.
 
 Generating the data can take from several minutes to several hours,
 depending on the size of the dataset.
 
 When it's done, you can find the generated graql file in the project folder:
 
-``` ldbc-snb-data.gql```
+``` ldbc-snb-data.gql ```
+
+Load the customized data to MindmapsDB using the following command:
+
+``` curl -H "Content-Type: application/json" -X POST -d '{"path":"FILE_PATH/ldbc-snb-data-person.gql"}' http://localhost:4567/import/batch/data ```
+
+Note that you still need to load the ontology file before loading your customized data!
+
+MindmapsDB Discussion: https://discuss.mindmaps.io/
